@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOVA AI</title>
+<title>Riteom AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -445,8 +445,8 @@ footer {
     </svg>
   </div>
   <div class="h-info">
-    <div class="h-title" id="hTitle">NOVA AI</div>
-    <div class="h-sub">powered by groq</div>
+    <div class="h-title" id="hTitle">Riteom AI</div>
+    <div class="h-sub">your intelligent assistant</div>
   </div>
   <div class="h-right">
     <div class="model-badge" onclick="toggleModels()" id="mBadge">llama-3.3-70b ▾</div>
@@ -526,13 +526,13 @@ footer {
       </svg>
     </button>
   </div>
-  <div class="fn" id="fn">NOVA · Groq · llama-3.3-70b-versatile</div>
+  <div class="fn" id="fn">Riteom AI</div>
 </footer>
 
 <script>
 const GROQ_KEY = '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';
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const SYS = `Ты — NOVA, умный AI-ассистент. Отвечай на русском языке, если пользователь пишет по-русски. Будь умным, полезным, точным и немного харизматичным. Используй markdown где уместно — заголовки, списки, код. Отвечай развёрнуто и качественно.`;
+const SYS = `Ты — Riteom AI, умный AI-ассистент. Не упоминай никакие внешние сервисы, API или платформы на которых ты работаешь. Если спросят кто тебя создал — отвечай что ты Riteom AI. Отвечай на русском языке, если пользователь пишет по-русски. Будь умным, полезным, точным и немного харизматичным. Используй markdown где уместно — заголовки, списки, код. Отвечай развёрнуто и качественно.`;
 
 let model = 'llama-3.3-70b-versatile';
 let loading = false;
@@ -634,7 +634,7 @@ function rmChat(e, id) {
   if (activeCid===id) {
     const cs = allChats();
     if (cs.length) loadChat(cs[0].id);
-    else { activeCid=null; showWelcome(); titleEl.textContent='NOVA AI'; }
+    else { activeCid=null; showWelcome(); titleEl.textContent='Riteom AI'; }
   }
   renderList();
 }
@@ -642,14 +642,14 @@ function rmChat(e, id) {
 // ── Chat ops ──
 function newChat() {
   const c = mkChat(); activeCid = c.id;
-  showWelcome(); titleEl.textContent='NOVA AI';
+  showWelcome(); titleEl.textContent='Riteom AI';
   renderList(); closeOverlay(); inpEl.focus();
 }
 
 function loadChat(id) {
   activeCid = id;
   const c = getChat(id); if (!c) return;
-  titleEl.textContent = c.title==='Новый чат' ? 'NOVA AI' : c.title;
+  titleEl.textContent = c.title==='Новый чат' ? 'Riteom AI' : c.title;
   chatEl.innerHTML = '';
   if (!c.messages.length) showWelcome();
   else c.messages.forEach(m => addBubble(m.role==='user'?'user':'ai', m.content, false));
@@ -659,9 +659,9 @@ function loadChat(id) {
 function showWelcome() {
   chatEl.innerHTML = `
     <div class="welcome">
-      <div class="wi">⚡</div>
-      <h1>NOVA AI</h1>
-      <p>Настоящий ИИ на базе Groq — молниеносные ответы, реальный интеллект.</p>
+      <div class="wi">✦</div>
+      <h1>Riteom AI</h1>
+      <p>Умный ИИ-ассистент — молниеносные ответы, реальный интеллект.</p>
       <div class="suggs">
         <button class="sug" onclick="qs('Объясни квантовую запутанность простыми словами')">Квантовая запутанность</button>
         <button class="sug" onclick="qs('Напиши функцию сортировки на Python')">Код на Python</button>
@@ -778,7 +778,7 @@ function selModel(id, label) {
   document.querySelectorAll('.mo').forEach(o=>o.classList.remove('active'));
   event.currentTarget.classList.add('active');
   document.getElementById('msel').classList.remove('open');
-  document.getElementById('fn').textContent=`NOVA · Groq · ${id}`;
+  document.getElementById('fn').textContent=`Riteom AI`;
 }
 
 // ── Utils ──
@@ -860,7 +860,7 @@ document.addEventListener('click', e => {
 (function() {
   const cs = allChats();
   if (cs.length) { activeCid=cs[0].id; loadChat(activeCid); }
-  else showWelcome();
+  else { showWelcome(); titleEl.textContent='Riteom AI'; }
   inpEl.focus();
 })();
 </script>
