@@ -661,7 +661,7 @@ function showWelcome() {
     <div class="welcome">
       <div class="wi">⚡</div>
       <h1>NOVA AI</h1>
-      <p>Это ии</p>
+      <p>Настоящий ИИ на базе Groq — молниеносные ответы, реальный интеллект.</p>
       <div class="suggs">
         <button class="sug" onclick="qs('Объясни квантовую запутанность простыми словами')">Квантовая запутанность</button>
         <button class="sug" onclick="qs('Напиши функцию сортировки на Python')">Код на Python</button>
@@ -789,8 +789,10 @@ function mdParse(t) {
   return t
     .replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) => {
       const id = 'cp' + (++copyIdx);
-      const label = lang ? lang : 'код';
-      return `<div class="pre-wrap"><button class="copy-btn" onclick="copyCode('${id}',this)" title="Скопировать">копировать</button><pre><code id="${id}">${esc(code.trim())}</code></pre></div>`;
+      const rawCode = code.trim();
+      // Кодируем в base64 чтобы безопасно хранить в data-атрибуте
+      const encoded = btoa(unescape(encodeURIComponent(rawCode)));
+      return `<div class="pre-wrap"><button class="copy-btn" data-code="${encoded}" onclick="copyCode(this)" title="Скопировать">копировать</button><pre><code id="${id}">${esc(rawCode)}</code></pre></div>`;
     })
     .replace(/`([^`]+)`/g,'<code>$1</code>')
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
@@ -806,11 +808,16 @@ function mdParse(t) {
     .replace(/\n/g,'<br>');
 }
 
-function copyCode(id, btn) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const text = el.innerText || el.textContent;
-  // Поддержка старых и новых браузеров
+function copyCode(btn) {
+  // Читаем оригинальный код из data-атрибута (не из DOM — там может быть обрезан)
+  const encoded = btn.getAttribute('data-code');
+  let text;
+  try {
+    text = decodeURIComponent(escape(atob(encoded)));
+  } catch(e) {
+    text = encoded; // fallback
+  }
+
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => flashCopied(btn)).catch(() => fallbackCopy(text, btn));
   } else {
