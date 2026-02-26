@@ -305,6 +305,88 @@ header {
   color:var(--gold); flex-shrink:0;
 }
 
+/* ══ ACTIVATION KEY ══ */
+.key-btn-row {
+  padding:6px 20px 10px; flex-shrink:0;
+}
+.key-nav-btn {
+  width:100%; display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:10px;
+  border:1px solid rgba(245,158,11,.35); background:rgba(245,158,11,.06);
+  color:#fbbf24; font-family:'JetBrains Mono',monospace;
+  font-size:.76rem; cursor:pointer; transition:all .2s; margin-bottom:0;
+}
+.key-nav-btn:hover { background:rgba(245,158,11,.14); border-color:rgba(245,158,11,.6); }
+.key-nav-btn.activated { border-color:rgba(34,197,94,.4); background:rgba(34,197,94,.07); color:#4ade80; }
+
+/* Key input overlay */
+#keyOverlay .panel { max-width:400px; }
+.key-body { padding:24px 20px; display:flex; flex-direction:column; gap:16px; }
+.key-field label { display:block; font-size:.65rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
+.key-field input {
+  width:100%; background:rgba(255,255,255,.05); border:1px solid var(--border);
+  border-radius:10px; color:var(--text); font-family:'JetBrains Mono',monospace;
+  font-size:.85rem; padding:10px 14px; outline:none; transition:all .2s; letter-spacing:.06em;
+}
+.key-field input:focus { border-color:rgba(245,158,11,.5); box-shadow:0 0 0 3px rgba(245,158,11,.07); }
+.key-submit-btn {
+  width:100%; padding:11px; border-radius:11px; border:none;
+  background:linear-gradient(135deg,#b45309,#f59e0b);
+  color:#fff; font-family:'JetBrains Mono',monospace;
+  font-size:.8rem; cursor:pointer; transition:all .2s;
+}
+.key-submit-btn:hover { filter:brightness(1.1); }
+.key-err { color:#f87171; font-size:.75rem; text-align:center; display:none; }
+.key-ok { color:#4ade80; font-size:.75rem; text-align:center; display:none; }
+
+/* ══ ADMIN PANEL ══ */
+#adminOverlay .panel { width:580px; max-width:96vw; }
+.admin-body { flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:18px; }
+.admin-body::-webkit-scrollbar { width:3px; }
+.admin-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+.admin-section-title {
+  font-family:'Syne',sans-serif; font-size:.75rem; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; color:#fbbf24;
+  display:flex; align-items:center; gap:8px;
+}
+.admin-section-title::after { content:''; flex:1; height:1px; background:rgba(245,158,11,.25); }
+.admin-field label { display:block; font-size:.65rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
+.admin-field input, .admin-field select {
+  width:100%; background:rgba(255,255,255,.05); border:1px solid var(--border);
+  border-radius:10px; color:var(--text); font-family:'JetBrains Mono',monospace;
+  font-size:.85rem; padding:10px 14px; outline:none; transition:all .2s;
+}
+.admin-field input:focus, .admin-field select:focus { border-color:rgba(245,158,11,.5); box-shadow:0 0 0 3px rgba(245,158,11,.07); }
+.admin-field select { cursor:pointer; }
+.admin-field select option { background:var(--surface); }
+.admin-btn {
+  padding:10px 18px; border-radius:10px; border:none; cursor:pointer;
+  font-family:'JetBrains Mono',monospace; font-size:.78rem; transition:all .2s;
+}
+.admin-btn.primary { background:linear-gradient(135deg,#7c3aed,#a855f7); color:#fff; }
+.admin-btn.gold { background:linear-gradient(135deg,#b45309,#f59e0b); color:#fff; }
+.admin-btn:hover { filter:brightness(1.1); transform:translateY(-1px); }
+.admin-btn:active { transform:translateY(0); }
+.admin-nft-list { display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto; }
+.admin-nft-list::-webkit-scrollbar { width:3px; }
+.admin-nft-list::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+.admin-nft-row {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(255,255,255,.03); border:1px solid var(--border);
+  border-radius:10px; padding:9px 12px;
+}
+.admin-nft-row .anr-emoji { font-size:1.3rem; flex-shrink:0; }
+.admin-nft-row .anr-name { flex:1; font-size:.78rem; color:var(--text); }
+.admin-nft-row .anr-del {
+  width:26px; height:26px; border-radius:7px; background:rgba(239,68,68,.1);
+  border:1px solid rgba(239,68,68,.25); color:#f87171; cursor:pointer;
+  font-size:.8rem; display:flex; align-items:center; justify-content:center; transition:all .2s;
+}
+.admin-nft-row .anr-del:hover { background:rgba(239,68,68,.2); }
+.admin-msg { font-size:.75rem; padding:8px 12px; border-radius:8px; text-align:center; display:none; }
+.admin-msg.success { background:rgba(34,197,94,.1); color:#4ade80; border:1px solid rgba(34,197,94,.2); }
+.admin-msg.err { background:rgba(239,68,68,.1); color:#f87171; border:1px solid rgba(239,68,68,.2); }
+
 /* ══ GIFT TOAST ══ */
 #giftToast {
   position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(20px);
@@ -438,6 +520,12 @@ footer { position:relative; z-index:10; padding:12px 20px 18px; border-top:1px s
         <span id="menuName">Профиль</span>
       </button>
     </div>
+    <div class="key-btn-row">
+      <button class="key-nav-btn" id="keyNavBtn" onclick="openKeyOverlay()">
+        <span>🔑</span>
+        <span id="keyNavLabel">Ключ активации</span>
+      </button>
+    </div>
     <div class="cp-new">
       <button class="new-chat-btn" onclick="newChat()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -495,6 +583,81 @@ footer { position:relative; z-index:10; padding:12px 20px 18px; border-top:1px s
       <div class="nft-grid" id="nftGrid">
         <div class="nft-empty">Пока нет NFT.<br>Делай запросы чтобы получить!</div>
       </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Key Activation overlay -->
+<div class="overlay" id="keyOverlay">
+  <div class="panel">
+    <div class="p-head">
+      <div class="p-title">🔑 Ключ активации</div>
+      <button class="p-close" onclick="closeOverlay('keyOverlay')">✕</button>
+    </div>
+    <div class="key-body">
+      <div class="key-field">
+        <label>Введите ключ активации</label>
+        <input type="password" id="keyInp" placeholder="Введите ключ…" onkeydown="if(event.key==='Enter')submitKey()">
+      </div>
+      <div class="key-err" id="keyErr">❌ Неверный ключ. Попробуйте ещё раз.</div>
+      <div class="key-ok" id="keyOk">✅ Ключ активирован! Добро пожаловать в Админку.</div>
+      <button class="key-submit-btn" onclick="submitKey()">🔓 Активировать</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin overlay -->
+<div class="overlay" id="adminOverlay">
+  <div class="panel">
+    <div class="p-head">
+      <div class="p-title">⚙️ Админ-панель</div>
+      <button class="p-close" onclick="closeOverlay('adminOverlay')">✕</button>
+    </div>
+    <div class="admin-body">
+
+      <div class="admin-section-title">👤 Имя пользователя</div>
+      <div class="admin-field">
+        <label>Username</label>
+        <input type="text" id="adminNameInp" placeholder="Введите имя…" maxlength="32">
+      </div>
+      <button class="admin-btn primary" onclick="adminSaveName()">💾 Сохранить имя</button>
+      <div class="admin-msg" id="adminNameMsg">✓ Сохранено!</div>
+
+      <div class="admin-section-title">🎁 Добавить NFT</div>
+      <div class="admin-field">
+        <label>Выберите NFT</label>
+        <select id="adminNftSelect">
+          <option value="0">💪 Силач (100₽ · +20₽/день)</option>
+          <option value="1">✌️ Мастер (200₽ · +50₽/день)</option>
+          <option value="custom">✨ Свой (кастомный)</option>
+        </select>
+      </div>
+      <div id="adminCustomNft" style="display:none; flex-direction:column; gap:10px;">
+        <div class="admin-field">
+          <label>Emoji</label>
+          <input type="text" id="adminNftEmoji" placeholder="🏆" maxlength="4">
+        </div>
+        <div class="admin-field">
+          <label>Название</label>
+          <input type="text" id="adminNftName" placeholder="Легенда" maxlength="24">
+        </div>
+        <div class="admin-field">
+          <label>Базовая стоимость (₽)</label>
+          <input type="number" id="adminNftVal" placeholder="500" min="1">
+        </div>
+        <div class="admin-field">
+          <label>Рост в день (₽)</label>
+          <input type="number" id="adminNftGrow" placeholder="100" min="0">
+        </div>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="admin-btn gold" onclick="adminAddNft()">➕ Добавить NFT</button>
+      </div>
+      <div class="admin-msg" id="adminNftMsg"></div>
+
+      <div class="admin-section-title">📋 Текущие NFT</div>
+      <div class="admin-nft-list" id="adminNftList"></div>
 
     </div>
   </div>
@@ -993,12 +1156,160 @@ function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,140)+'px';}
 
+document.getElementById('adminOverlay').addEventListener('click', e => { if(e.target===document.getElementById('adminOverlay')) closeOverlay('adminOverlay'); });
+document.getElementById('keyOverlay').addEventListener('click', e => { if(e.target===document.getElementById('keyOverlay')) closeOverlay('keyOverlay'); });
+
 document.addEventListener('click',e=>{
   if(!e.target.closest('.model-badge')&&!e.target.closest('.msel'))
     document.getElementById('msel').classList.remove('open');
 });
 
-// ══ INIT ══
+// ══ ACTIVATION KEYS ══
+const VALID_KEYS = ['tretxinosmeo928','ybrubrsodnaoe823','jythshbwdfki81349'];
+
+function isActivated() { return ls('riteom_activated', false); }
+function setActivated() { lss('riteom_activated', true); }
+
+function openKeyOverlay() {
+  if (isActivated()) {
+    // Already activated → open admin
+    closeOverlay('chatOverlay');
+    openAdminPanel();
+    return;
+  }
+  document.getElementById('keyInp').value = '';
+  document.getElementById('keyErr').style.display = 'none';
+  document.getElementById('keyOk').style.display = 'none';
+  closeOverlay('chatOverlay');
+  openOverlay('keyOverlay');
+}
+
+function submitKey() {
+  const val = document.getElementById('keyInp').value.trim();
+  const errEl = document.getElementById('keyErr');
+  const okEl = document.getElementById('keyOk');
+  errEl.style.display = 'none';
+  okEl.style.display = 'none';
+  if (VALID_KEYS.includes(val)) {
+    setActivated();
+    okEl.style.display = 'block';
+    updateKeyBtnState();
+    setTimeout(() => {
+      closeOverlay('keyOverlay');
+      openAdminPanel();
+    }, 1200);
+  } else {
+    errEl.style.display = 'block';
+    document.getElementById('keyInp').value = '';
+    document.getElementById('keyInp').focus();
+  }
+}
+
+function updateKeyBtnState() {
+  const btn = document.getElementById('keyNavBtn');
+  const label = document.getElementById('keyNavLabel');
+  if (btn && label) {
+    if (isActivated()) {
+      btn.classList.add('activated');
+      label.textContent = '⚙️ Админ-панель';
+    } else {
+      btn.classList.remove('activated');
+      label.textContent = 'Ключ активации';
+    }
+  }
+}
+
+// ══ ADMIN PANEL ══
+function openAdminPanel() {
+  const p = getProfile();
+  document.getElementById('adminNameInp').value = p.name || '';
+  document.getElementById('adminNftSelect').value = '0';
+  document.getElementById('adminCustomNft').style.display = 'none';
+  document.getElementById('adminNftMsg').style.display = 'none';
+  document.getElementById('adminNameMsg').style.display = 'none';
+  renderAdminNftList();
+  openOverlay('adminOverlay');
+  // nft select toggle
+  document.getElementById('adminNftSelect').onchange = function() {
+    document.getElementById('adminCustomNft').style.display = this.value === 'custom' ? 'flex' : 'none';
+  };
+}
+
+function adminSaveName() {
+  const name = document.getElementById('adminNameInp').value.trim();
+  const p = getProfile(); p.name = name; saveProfileData(p);
+  updateMenuName(name);
+  const msg = document.getElementById('adminNameMsg');
+  msg.textContent = '✓ Имя сохранено!';
+  msg.className = 'admin-msg success';
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+}
+
+function adminAddNft() {
+  const sel = document.getElementById('adminNftSelect').value;
+  const msg = document.getElementById('adminNftMsg');
+  let nft;
+  if (sel === 'custom') {
+    const emoji = document.getElementById('adminNftEmoji').value.trim() || '🏆';
+    const name = document.getElementById('adminNftName').value.trim() || 'Custom NFT';
+    const val = parseInt(document.getElementById('adminNftVal').value) || 500;
+    const grow = parseInt(document.getElementById('adminNftGrow').value) || 100;
+    // Add custom to NFT_DEFS temporarily
+    const customDef = { emoji, name, rarity:'Admin', baseVal: val, dailyGrow: grow, trigger:'admin' };
+    NFT_DEFS.push(customDef);
+    nft = { defIdx: NFT_DEFS.length - 1, issuedAt: Date.now() };
+  } else {
+    nft = { defIdx: parseInt(sel), issuedAt: Date.now() };
+  }
+  const nfts = getNfts();
+  nfts.push(nft);
+  saveNfts(nfts);
+  const def = NFT_DEFS[nft.defIdx];
+  msg.textContent = `✅ NFT "${def.name}" добавлен!`;
+  msg.className = 'admin-msg success';
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2500);
+  renderAdminNftList();
+  // Update stats if profile is open
+  document.getElementById('statNfts').textContent = getNfts().length;
+}
+
+function adminDeleteNft(idx) {
+  const nfts = getNfts();
+  nfts.splice(idx, 1);
+  saveNfts(nfts);
+  renderAdminNftList();
+  document.getElementById('statNfts').textContent = getNfts().length;
+}
+
+function renderAdminNftList() {
+  const list = document.getElementById('adminNftList');
+  const nfts = getNfts();
+  if (!nfts.length) {
+    list.innerHTML = '<div class="nft-empty">NFT пока нет.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  [...nfts].reverse().forEach((nft, ri) => {
+    const realIdx = nfts.length - 1 - ri;
+    const def = NFT_DEFS[nft.defIdx];
+    if (!def) return;
+    const row = document.createElement('div');
+    row.className = 'admin-nft-row';
+    row.innerHTML = `
+      <div class="anr-emoji">${def.emoji}</div>
+      <div class="anr-name">${def.name}</div>
+      <button class="anr-del" onclick="adminDeleteNft(${realIdx})">🗑</button>`;
+    list.appendChild(row);
+  });
+}
+
+// ══ INIT KEY STATE ══
+document.addEventListener('DOMContentLoaded', () => {});
+// Called in INIT section below
+
+
 (function(){
   // Модель
   try {
@@ -1012,6 +1323,9 @@ document.addEventListener('click',e=>{
       });
     }
   } catch(e){}
+
+  // Key btn state
+  updateKeyBtnState();
 
   // Профиль
   const p=getProfile();
