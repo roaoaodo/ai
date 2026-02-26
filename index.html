@@ -762,11 +762,11 @@ function qs(t) { inpEl.value=t; sendMsg(); }
 function toggleModels() { document.getElementById('msel').classList.toggle('open'); }
 function selModel(id, label) {
   model=id;
+  localStorage.setItem('riteom_model', JSON.stringify({id, label}));
   document.getElementById('mBadge').textContent=label+' ▾';
   document.querySelectorAll('.mo').forEach(o=>o.classList.remove('active'));
   event.currentTarget.classList.add('active');
   document.getElementById('msel').classList.remove('open');
-  document.getElementById('fn').textContent=`Riteom AI`;
 }
 
 // ── Utils ──
@@ -846,6 +846,23 @@ document.addEventListener('click', e => {
 
 // ── Init ──
 (function() {
+  // Восстанавливаем сохранённую модель
+  try {
+    const saved = JSON.parse(localStorage.getItem('riteom_model'));
+    if (saved && saved.id) {
+      model = saved.id;
+      document.getElementById('mBadge').textContent = saved.label + ' ▾';
+      document.querySelectorAll('.mo').forEach(o => {
+        const onclick = o.getAttribute('onclick') || '';
+        if (onclick.includes(saved.id)) {
+          o.classList.add('active');
+        } else {
+          o.classList.remove('active');
+        }
+      });
+    }
+  } catch(e) {}
+
   const cs = allChats();
   if (cs.length) { activeCid=cs[0].id; loadChat(activeCid); }
   else { showWelcome(); titleEl.textContent='Riteom AI'; }
